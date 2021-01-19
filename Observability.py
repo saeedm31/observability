@@ -22,7 +22,7 @@ plt.close('all')
 start = time.time()
 
 def observibility_in_night(x,ra,dec): # paranal VLT. x: number of night 1 to 365
-	alt_airmass,sun_cut = 41.8 , -18.0 # edit here for another altitude / it's not airmass, it's altitude 
+	altitude_cut, sun_cut = 41.8 , -18.0 # edit here for another altitude / it's not airmass, it's altitude 
 	a = datetime.datetime(2017, 1, 1, 0, 0, 0, 703890)
 	date = a + datetime.timedelta(days = x)
 	date_c = str(date.year) + '-' + str(date.month) + '-' + str(date.day) + ' ' + '00:00:00'
@@ -43,7 +43,7 @@ def observibility_in_night(x,ra,dec): # paranal VLT. x: number of night 1 to 365
 	sun = sunaltazs.alt.deg[index]
 	delta_midnight_star = delta_midnight_star[index]
 	deg_star = target_altazs.alt[index]
-	index_airmass = np.where(deg_star.deg > alt_airmass) # airmass 1.50 cut-off altitude=41.5 deg
+	index_airmass = np.where(deg_star.deg > altitude_cut) # airmass 1.50 cut-off altitude=41.5 deg
 	sun_time = sun_time[index_airmass]
 	sun = sun[index_airmass]
 	delta_midnight_star = delta_midnight_star[index_airmass]
@@ -55,8 +55,6 @@ def observibility_in_night(x,ra,dec): # paranal VLT. x: number of night 1 to 365
 		dur = 0
 	return dur
 
-# alt_airmass = 41.8 # deg airmass = 2.0 = 30.0  1.5 = 41.8
-# sun_cut = -18.0 # deg
 stars_list = np.genfromtxt('stars-list.txt', delimiter='\t', skip_header=0, dtype=None, names=True,usemask=False)
 inputs = range(365)
 
@@ -89,7 +87,6 @@ for d in inputs:
 plt.plot(DATE, resul)
 plt.gcf().autofmt_xdate()
 plt.show()
-
 
 end = time.time()
 # print(end - start)
