@@ -21,7 +21,7 @@ plt.close('all')
 
 start = time.time()
 
-def observibility_in_year(x,ra,dec): # paranal VLT
+def observibility_in_night(x,ra,dec): # paranal VLT. x: number of night 1 to 365
 	alt_airmass,sun_cut = 41.8 , -18.0
 	a = datetime.datetime(2017, 1, 1, 0, 0, 0, 703890)
 	date = a + datetime.timedelta(days = x)
