@@ -69,7 +69,7 @@ for item in stars_list[range(1)]:
 	dec = c.dec
 	dec = dec.deg
 	num_cores = multiprocessing.cpu_count()
-	resul = Parallel(n_jobs=num_cores)(delayed(observibility_in_year)(x,item['RA'],item['DEC']) for x in inputs)
+	resul = Parallel(n_jobs=num_cores)(delayed(observibility_in_night)(x,item['RA'],item['DEC']) for x in inputs)
 	# for day in inputs:
 	# 	r = observibility_in_year(day,item['RA'],item['DEC'])
 	# 	resul.append(r)
