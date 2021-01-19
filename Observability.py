@@ -64,7 +64,7 @@ def observibility_in_night(x,ra,dec): # paranal VLT. x: number of night 1 to 365
 	return dur
 
 stars_list = np.genfromtxt('stars-list.txt', delimiter='\t', skip_header=0, dtype=None, names=True,usemask=False) # read the target list
-inputs = range(365)
+inputs = np.arange(1,366,1)
 
 
 # Here is calculation of observibility over year using multiprocessing to be faster
