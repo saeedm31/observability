@@ -22,7 +22,15 @@ plt.close('all')
 start = time.time()
 
 def observibility_in_night(x,ra,dec): # paranal VLT. x: number of night 1 to 365
-	altitude_cut, sun_cut = 41.8 , -18.0 # edit here for another altitude / it's not airmass, it's altitude 
+	altitude_cut, sun_cut = 41.8 , -18.0  	# edit here for another altitude cut / it's not airmass, it's altitude
+	"""
+	# x: night number should be 1,2,3,4,...,365
+	
+	return:
+	dur: calculate the number of hours a star is above a given altitude (airmass) in one night
+	
+	"""
+	
 	a = datetime.datetime(2017, 1, 1, 0, 0, 0, 703890)
 	date = a + datetime.timedelta(days = x)
 	date_c = str(date.year) + '-' + str(date.month) + '-' + str(date.day) + ' ' + '00:00:00'
@@ -55,7 +63,7 @@ def observibility_in_night(x,ra,dec): # paranal VLT. x: number of night 1 to 365
 		dur = 0
 	return dur
 
-stars_list = np.genfromtxt('stars-list.txt', delimiter='\t', skip_header=0, dtype=None, names=True,usemask=False)
+stars_list = np.genfromtxt('stars-list.txt', delimiter='\t', skip_header=0, dtype=None, names=True,usemask=False) # read the target list
 inputs = range(365)
 
 
@@ -72,10 +80,11 @@ for item in stars_list[range(1)]:
 	# for day in inputs:
 	# 	r = observibility_in_year(day,item['RA'],item['DEC'])
 	# 	resul.append(r)
-	j = 0
-	for i in resul: # result: list with 365 items. Each item is hour(s) which the target is visibible at the airmass
-		j = i + j
-	print(item['name'], '\t',j)
+	
+	# result: list with 365 items. Each item is an hour(s) which the target is visibible above altitude/airmass on each night
+	# sum cal
+	j = np.sum(resul)
+	print(item['name'], '\t',j, 'hours')
 
 
 DATE = []
